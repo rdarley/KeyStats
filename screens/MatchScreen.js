@@ -36,17 +36,14 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
-          </View>
-          <View style={styles.buttonContainer}>
+
             <Button
               onPress={() => {
                         Alert.alert("Yo Dawg Let's Log you In");
                       }}
               title="Login"
             />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button}
+            <Button
               onPress={() => {
                         Alert.alert('Detailed Stats');
                       }}
@@ -179,9 +176,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
-  buttonContainer: {
-    flex: 1,
-    margin: 20,
-    alignItems: 'center'
-  }
 });
