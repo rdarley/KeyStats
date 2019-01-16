@@ -36,22 +36,26 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
-          </View>
-          <View style={styles.buttonContainer}>
+
             <Button
               onPress={() => {
-                        Alert.alert("Yo Dawg Let's Log you In");
+                        Alert.alert('Deck List Goes Here');
                       }}
-              title="Login"
+              title="View Deck List"
             />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button}
+            <Button
               onPress={() => {
-                        Alert.alert('Detailed Stats');
+                        Alert.alert('Recording Results');
                       }}
-              title="Detailed Stats"
+              title="Record Result"
             />
+            <Button
+              onPress={() => {
+                        Alert.alert('QR Scanning Time');
+                      }}
+              title="Scan Deck"
+            />
+
           </View>
         </ScrollView>
       </View>
@@ -179,9 +183,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
-  buttonContainer: {
-    flex: 1,
-    margin: 20,
-    alignItems: 'center'
-  }
 });
