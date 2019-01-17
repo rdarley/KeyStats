@@ -3,7 +3,7 @@ import {
   Alert,
   Image,
   Platform,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,15 +14,25 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
+import { getDeckInfo } from '../components/Deck';
+
+export default class DeckScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      deckIds: [],
+      error: false
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -33,21 +43,17 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
+          <View style={styles.buttonContainer}>
             <Button
               onPress={() => {
-                        Alert.alert('Deck List Goes Here');
+                        getDeckInfo('a8f8ebf7-d4eb-4a5c-9b9a-1f36fe176269')
+                          .then((res) => {
+                            this.setState({
+                              deckIds: [{key: res.data.id}]
+                            })
+                          })
                       }}
-              title="View Deck List"
-            />
-            <Button
-              onPress={() => {
-                        Alert.alert('Recording Results');
-                      }}
-              title="Record Result"
+              title="Manual Deck"
             />
             <Button
               onPress={() => {
@@ -55,9 +61,13 @@ export default class HomeScreen extends React.Component {
                       }}
               title="Scan Deck"
             />
-
           </View>
-        </ScrollView>
+          <FlatList
+            style={styles.deckList}
+            data={this.state.deckIds}
+            renderItem={({item}) => <Text>{item.key}</Text>}
+          />
+        </View>
       </View>
     );
   }
@@ -183,4 +193,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 50,
+  }
 });
